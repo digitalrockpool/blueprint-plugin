@@ -11,7 +11,7 @@ License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain:  blueprint
 
 /* # Table of Contents
-	- WordPress Admin Customisations
+- WordPress Admin Customisations
     - Disable Theme and Plugin Editor
     - Theme Support
     - Remove User Profile Fields
@@ -22,6 +22,18 @@ Text Domain:  blueprint
     - Remove Langage Dropdown
 */
 
+$site_url = get_option( 'siteurl' );
+include $site_url.'/wp-content/plugins/blueprint/inc/gravity-forms.php';
+
+/* # Enqueue Custom Scripts and Styles
+---------------------------------------------------------------------- */
+function utm_user_scripts() {
+  $site_url = get_option( 'siteurl' );
+
+wp_enqueue_style( 'style',  $site_url.'/wp-content/plugins/blueprint/lib/css/gravity-forms.css');
+}
+
+add_action( 'wp_enqueue_scripts', 'utm_user_scripts' );
 
 /* # WordPress Admin Customisations
 ---------------------------------------------------------------------- */
@@ -36,7 +48,7 @@ add_theme_support( 'custom-logo' );
 ---------------------------------------------------------------------- */
 /* ## Style Login Page ## */
 add_action( 'login_head', function() {
-    $site_url = get_option( 'siteurl' );
+  $site_url = get_option( 'siteurl' );
 	echo '<link rel="stylesheet" type="text/css" href="'.$site_url.'/wp-content/plugins/blueprint/lib/css/login.css" />';
 } );
 
